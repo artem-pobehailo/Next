@@ -1,15 +1,20 @@
-// app/docs/[...slug]/page.tsx
+import NoteList from '@/components/NoteList/NoteList';
+import fetchNotes from '@/lib/api';
 
 type Props = {
   params: Promise<{ slug: string[] }>;
 };
 
-export default async function DocsPage({ params }: Props) {
-  const { slug } = await params;
+export default async function FilteredNotesPage({ params }: Props) {
+  const { slug } = (await params) ?? ['all'];
+  const tag = slug[0] === 'all' ? undefined : slug[0];
+
+  const response = await fetchNotes({ tag });
+  const notes = response.notes;
 
   return (
     <div>
-      <h1>Docs page</h1>
+      <NoteList notes={notes} />
     </div>
   );
 }

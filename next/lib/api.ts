@@ -70,8 +70,3 @@ export const fetchTags = async (): Promise<string[]> => {
     return ['All'];
   }
 };
-
-export const getCategories = async () => {
-  const res = await axios<Note[]>('/notes');
-  return res.data;
-};
