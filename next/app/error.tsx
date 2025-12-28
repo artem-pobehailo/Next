@@ -1,7 +1,7 @@
 // app/notes/error.tsx
 
 'use client';
-
+import css from './Home.module.css';
 type Props = {
   error: Error;
   reset: () => void;

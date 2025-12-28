@@ -1,10 +1,10 @@
-import { createPortal } from "react-dom";
-import css from "./Modal.module.css";
-import { useEffect } from "react";
+import { createPortal } from 'react-dom';
+import css from './Modal.module.css';
+import { useEffect } from 'react';
 
 interface ModalProps {
   onClose: () => void;
-  // Додаємо пропс children і типізуємо його
+
   children: React.ReactNode;
 }
 
@@ -17,17 +17,17 @@ export default function ModalNotes({ onClose, children }: ModalProps) {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
+      if (e.key === 'Escape') {
         onClose();
       }
     };
 
-    document.addEventListener("keydown", handleKeyDown);
-    document.body.style.overflow = "hidden";
+    document.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
 
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
     };
   }, [onClose]);
 
@@ -38,11 +38,8 @@ export default function ModalNotes({ onClose, children }: ModalProps) {
       role="dialog"
       aria-modal="true"
     >
-      <div className={css.modal}>
-        {/* Тут рендериться переданий вміст із пропса children */}
-        {children}
-      </div>
+      <div className={css.modal}>{children}</div>
     </div>,
-    document.body
+    document.body,
   );
 }

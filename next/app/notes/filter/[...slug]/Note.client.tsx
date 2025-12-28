@@ -6,15 +6,17 @@ import { FetchNotesResponse } from '@/types/note';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useDebounce } from 'use-debounce';
-import Loading from '../loading';
+import Loading from '../../../loading';
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage';
 import ModalNotes from '@/components/ModalNotes/Modal';
 import NoteForm from '@/components/NoteForm/NoteForm';
 import NoteList from '@/components/NoteList/NoteList';
 import Pagination from '@/components/Pagination/Pagination';
 import SearchBarNotes from '@/components/SearchBox/SearchBox';
-
-export default function NoteClient() {
+interface Props {
+  tag?: string;
+}
+export default function NoteClient({ tag }: Props) {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const [debouncedSearch] = useDebounce(search, 500);
@@ -23,8 +25,8 @@ export default function NoteClient() {
   const closeModal = () => setIsModalOpen(false);
 
   const { data, isLoading, isError } = useQuery<FetchNotesResponse>({
-    queryKey: ['notes', page, debouncedSearch],
-    queryFn: () => fetchNotes({ page, search: debouncedSearch }),
+    queryKey: ['notes', page, debouncedSearch, tag],
+    queryFn: () => fetchNotes({ page, search: debouncedSearch, tag }),
   });
   function handleSearchNotes(newQuery: string) {
     setSearch(newQuery);

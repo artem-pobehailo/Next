@@ -1,7 +1,7 @@
 // components/NoteItem/NoteItem.tsx
 
+import { Note } from '@/types/note';
 import Link from 'next/link';
-import { Note } from '@/lib/api';
 
 type Props = {
   item: Note;
