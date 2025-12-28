@@ -1,5 +1,5 @@
 'use client';
-import css from '../NotesPage.module.css';
+import css from './NoteDetails.module.css';
 
 import Loading from '@/app/loading';
 import { fetchNoteById } from '@/lib/api';

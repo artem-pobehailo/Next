@@ -49,3 +49,29 @@ export async function fetchNoteById(id: string): Promise<Note> {
   const response = await api.get<Note>(`/notes/${id}`);
   return response.data;
 }
+
+export const fetchTags = async (): Promise<string[]> => {
+  try {
+    const response = await api.get('/notes', {
+      params: { page: 1, perPage: 20 },
+    });
+
+    const data = response.data;
+    const notes = Array.isArray(data) ? data : data.notes;
+    const tagsSet = new Set<string>();
+
+    notes.forEach((note: Note) => {
+      tagsSet.add(note.tag);
+    });
+
+    return [...Array.from(tagsSet)];
+  } catch (error) {
+    console.error('Fetch tags failed:', error);
+    return ['All'];
+  }
+};
+
+export const getCategories = async () => {
+  const res = await axios<Note[]>('/notes');
+  return res.data;
+};
