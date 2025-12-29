@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import css from './SidebarNotes.module.css';
-import { Note } from '@/types/note';
 
 interface SidebarNotesProps {
   notes: string[];
@@ -8,20 +7,25 @@ interface SidebarNotesProps {
 
 export default function SidebarNotes({ notes }: SidebarNotesProps) {
   return (
-    <ul className={css.menuList}>
-      <li className={css.menuItem}>
-        <Link href={`/notes/filter/all`} className={css.menuLink}>
-          All notes
-        </Link>
-      </li>
-
-      {notes.map((note) => (
-        <li key={note} className={css.menuItem}>
-          <Link className={css.menuLink} href={`/notes/filter/${note}`}>
-            {note}
+    <>
+      <Link className={css.menuLink} href="/notes/action/create">
+        Create note
+      </Link>
+      <ul className={css.menuList}>
+        <li className={css.menuItem}>
+          <Link href={`/notes/filter/all`} className={css.menuLink}>
+            All notes
           </Link>
         </li>
-      ))}
-    </ul>
+
+        {notes.map((note) => (
+          <li key={note} className={css.menuItem}>
+            <Link className={css.menuLink} href={`/notes/filter/${note}`}>
+              {note}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }

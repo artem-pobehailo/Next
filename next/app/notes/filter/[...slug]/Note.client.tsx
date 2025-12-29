@@ -46,16 +46,6 @@ export default function NoteClient({ tag }: Props) {
               setPage={setPage}
             />
           )}
-          <div>
-            <button className={css.button} onClick={openModal}>
-              Create note +
-            </button>
-            {isModalOpen && (
-              <ModalNotes onClose={closeModal}>
-                <NoteForm onSuccess={closeModal} />
-              </ModalNotes>
-            )}
-          </div>
         </>
       </header>
 

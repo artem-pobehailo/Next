@@ -50,7 +50,7 @@ export async function fetchNoteById(id: string): Promise<Note> {
   return response.data;
 }
 
-export const fetchTags = async (): Promise<string[]> => {
+export const fetchTags = async (): Promise<Note['tag'][]> => {
   try {
     const response = await api.get('/notes', {
       params: { page: 1, perPage: 20 },
@@ -58,15 +58,16 @@ export const fetchTags = async (): Promise<string[]> => {
 
     const data = response.data;
     const notes = Array.isArray(data) ? data : data.notes;
-    const tagsSet = new Set<string>();
+
+    const tagsSet = new Set<Note['tag']>();
 
     notes.forEach((note: Note) => {
       tagsSet.add(note.tag);
     });
 
-    return [...Array.from(tagsSet)];
+    return Array.from(tagsSet);
   } catch (error) {
     console.error('Fetch tags failed:', error);
-    return ['All'];
+    return ['Todo'];
   }
 };
